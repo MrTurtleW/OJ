@@ -1,5 +1,3 @@
-# Python3
-
 ```python
 class Solution(object):
     def twoSum(self, nums, target):
