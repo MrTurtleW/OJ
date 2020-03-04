@@ -1,3 +1,43 @@
+
+# C++
+
+```c++
+#include<iostream>
+#include<map>
+#include<string>
+
+using namespace std;
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        map<char, int> usedChar;
+        int start = 0, maxLength = 0;
+        for(int i=0; i<s.length(); i++){
+        	if(usedChar.count(s.at(i)) == 1 && start <= usedChar[s.at(i)]){
+        		start = usedChar[s.at(i)] + 1;
+			}
+			else{
+				maxLength = max(maxLength, i - start + 1);
+			}
+			
+			usedChar[s.at(i)] = i;
+		}
+		
+		return maxLength;
+    }
+};
+
+int main(){
+	string s;
+	Solution *solution = new Solution;
+	while(cin >> s){
+		cout << solution->lengthOfLongestSubstring(s) << endl;
+	}
+} 
+```
+
+# python
 ```python
 class Solution:
     def lengthOfLongestSubstring(self, s):
