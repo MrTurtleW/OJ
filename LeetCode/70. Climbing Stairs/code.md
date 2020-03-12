@@ -1,9 +1,5 @@
 # 自己写的
 
-暴力：先列举前几个
-
-第三个台阶要么从第二个台阶上，要么从第一个台阶上。
-
 斐波那契书列
 
 ```java
@@ -20,11 +16,6 @@ class Solution {
             i++;
         }
         return i_2;
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        System.out.println(solution.climbStairs(5));
     }
 }
 ```
