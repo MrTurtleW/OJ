@@ -5,10 +5,13 @@
 2. 二叉搜索树中序遍历有序
 
 
-递归：
+递归（自己写的）：
+- 也是利用中序遍历有序的思想
+- 保存中序遍历上一个值来判断是否有序
 
 ```java
 class Solution {
+    // 用来保存中序遍历上一个值是否有序
     private TreeNode lastVal = null;
     public boolean isValidBST(TreeNode root) {
         if (root == null)

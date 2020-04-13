@@ -1,18 +1,6 @@
 # 题解
 
 ```java
-public class Solution {
-    public int minDepth(TreeNode root) {
-        if(root == null) return 0;
-        int left = minDepth(root.left);
-        int right = minDepth(root.right);
-        return (left == 0 || right == 0) ? left + right + 1: Math.min(left,right) + 1;
-       
-    }
-}
-```
-
-```java
 public static int minDepth(TreeNode root) {
 	if (root == null)	return 0;
 	if (root.left == null)	return minDepth(root.right) + 1;
@@ -21,7 +9,7 @@ public static int minDepth(TreeNode root) {
 }
 ```
 
-迭代
+迭代（层次遍历第一个叶子节点的高度就是最小高度）
 
 ```java
 public int minDepth(TreeNode root) {
@@ -34,6 +22,7 @@ public int minDepth(TreeNode root) {
         int size = que.size();
         while(size>0){
             TreeNode node =que.poll();
+            // 层次遍历达到叶子节点，则找到最小高度
             if(node.left == null && node.right ==null)
                 return level;
             if(node.left != null)

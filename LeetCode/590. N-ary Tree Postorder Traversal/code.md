@@ -1,4 +1,4 @@
-j# 自己写的
+# 自己写的
 
 ```java
 class Solution {

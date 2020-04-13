@@ -20,6 +20,7 @@ public class Codec {
     }
 
     // Use queue to simplify position move
+    // 这里用队列仅仅是为了取下一个元素方便
     private TreeNode deserial(Queue<String> q) {
         String val = q.poll();
         if ("#".equals(val)) return null;

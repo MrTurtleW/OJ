@@ -55,7 +55,7 @@ class Solution {
 
 效率高一点
 
-for 循环里 i 从 start 到 n，其实没必要到 n。比如，n = 5，k = 4，temp.size( ) == 1，此时代表我们还需要（4 - 1 = 3）个数字，如果 i = 4 的话，以后最多把 4 和 5 加入到 temp 中，而此时 temp.size() 才等于 1 + 2 = 3，不够 4 个，所以 i 没必要等于 4，i 循环到 3 就足够了。
+for 循环里 i 从 start 到 n，其实没必要到 n。比如，n = 5，k = 4，temp.size( ) = 1，此时代表我们还需要（4 - 1 = 3）个数字，如果 i = 4 的话，以后最多把 4 和 5 加入到 temp 中，而此时 temp.size() 才等于 1 + 2 = 3，不够 4 个，所以 i 没必要等于 4，i 循环到 3 就足够了。
 
 所以 for 循环的结束条件可以改成， `i <= n - (k - temp.size()) + 1`，`k - temp.size()` 代表我们还需要的数字个数。因为我们最后取到了 n，所以还要加 1。
 
@@ -74,6 +74,7 @@ class Solution {
         if (combination.size() == k) {
             result.add(new LinkedList<>(combination));
         }
+        // k - combination.size() 表示还需要多少个元素
         for (int i = start; i <= n - (k - combination.size()) + 1; i++) {
             combination.add(i);
             helper(i + 1, left-1, combination);
