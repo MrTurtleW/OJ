@@ -72,3 +72,28 @@ class Solution:
 
         return maxLength
 ```
+
+
+# java
+
+```java
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Map<Character, Integer> usedChar = new HashMap<>();
+
+        int start = 0, maxLength = 0;
+
+        for (int i=0; i< s.length(); i++) {
+            if (usedChar.containsKey(s.charAt(i)) && start <= usedChar.get(s.charAt(i))) {
+                start = usedChar.get(s.charAt(i)) + 1;
+            }
+            else {
+                maxLength = Math.max(maxLength, i - start + 1);
+            }
+            usedChar.put(s.charAt(i), i);
+        }
+
+        return maxLength;
+    }
+}
+```
