@@ -102,3 +102,16 @@ class Solution {
     }
 }
 ```
+
+
+# 2020-04-28
+
+```python
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        for i, row in enumerate(triangle[-2::-1]):
+            for j in range(len(row)):
+                row[j] += min(triangle[len(triangle)-i-1][j], triangle[len(triangle)-i-1][j+1])
+
+        return triangle[0][0]
+```

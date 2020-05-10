@@ -86,3 +86,34 @@ class Solution {
     }
 }
 ```
+
+
+# 2020-04-28
+
+BFS
+
+```python
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if root is None:
+            return []
+
+        res = []
+        queue = [root]
+
+        while queue:
+            temp = []
+            size = len(queue)
+            for i in range(size):
+                temp.append(queue[0].val)
+                if queue[0].left:
+                    queue.append(queue[0].left)
+                if queue[0].right:
+                    queue.append(queue[0].right)
+
+                del queue[0]
+
+            res.append(temp)
+
+        return res
+```
