@@ -1,5 +1,3 @@
-# 自己写的
-
 ```java
 class ListNode {
     int val;
