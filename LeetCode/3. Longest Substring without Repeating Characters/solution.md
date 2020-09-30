@@ -25,7 +25,7 @@ public class Solution {
 }
 ```
 
-- Time complexity: `$O(n^3)$`
+- Time complexity: $O(n^3)$
 
     To verify if characters within inde range `[i, j)` are all unique, we need to scan all of them, Thus, it costs $O(j-i)$ time.
 
@@ -33,15 +33,16 @@ public class Solution {
 
     Thus, the sum of all the time comsumption is 
 
-    ```math
+    $$
     O(\sum_{i=0}^{n-1}(\sum_{j=i+1}^n(j-i)))=O(\sum_{i=0}^{n-1}\frac{(1+n-i)(n-i)}{2})=O(n^3)
-    ```
+    $$
+    
 
 - Space complexity: $O(min(n,m))$. We need $O(k)$ space for checking a substring has no duplicate characters, where $k$ is the size of the Set. The size of the Set is upper bounded by the size of the string `$n$` and the size of the charset/alphabet `$m$`. 
 
 # Approach 2: Sliding Window
 
-In the naive approaches, we repeatedly check a substring to see if it has duplicate character. But it is unnecessary. If a substring `$s_{ij}$` from index `$i$` to `$j - 1$` is already checked to have no duplicate characters. We only need to check if `$s[j]$` is already in the substring `$s_{ij}$`
+In the naive approaches, we repeatedly check a substring to see if it has duplicate character. But it is unnecessary. If a substring $s_{ij}$ from index $i$ to $j - 1$ is already checked to have no duplicate characters. We only need to check if $s[j]$ is already in the substring $s_{ij}$
 
 To check if a character is already in the substring, we can scan the substring, which leads to an $O(n^2)$ algorithm. But we can do better.
 
@@ -68,14 +69,14 @@ public class Solution {
 }
 ```
 
-- Time complexity: `$O(2n)=O(n)$`
-- Space complexity: `$O(min(m, n))$`
+- Time complexity: $O(2n)=O(n)$
+- Space complexity: $O(min(m, n))$
 
 # Approach 3: Sliding Window Optimized
 
 The above solution requires at most 2n steps. In fact, it could be optimized to require only n steps. Instead of using a set to tell if a character exists or not, we could define a mapping of the characters to its index. Then we can skip the characters immediately when we found a repeated character.
 
-The reason is that if $s[j]$ have a duplicate in the range $[i, j)$ with index $j'$, we don't need to increase ii little by little. We can skip all the elements in the range `$[i, j']$` and let ii to be `$j' + 1$` directly.
+The reason is that if $s[j]$ have a duplicate in the range $[i, j)$ with index $j'$, we don't need to increase ii little by little. We can skip all the elements in the range $[i, j']$ and let ii to be $j' + 1$ directly.
 
 ```java
 public class Solution {

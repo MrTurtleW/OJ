@@ -9,6 +9,6 @@ Explanation: The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
 
 Constraints:
 
-- `$3 <= nums.length <= 10^3$`
-- `$-10^3 <= nums[i] <= 10^3$`
-- `$-10^4 <= target <= 10^4$`
+- $3 <= nums.length <= 10^3$
+- $-10^3 <= nums[i] <= 10^3$
+- $-10^4 <= target <= 10^4$

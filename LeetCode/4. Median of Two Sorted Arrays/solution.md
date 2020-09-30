@@ -34,7 +34,7 @@ If we can ensure:
 2) max(left_part) <= min(right_part)
 ```
 
-Then we divide all elements in {**A,B**} into two parts with equal length, and one part is always greater than the other. Then **median=(max(left_part)+min(right_part))/2**.
+Then we divide all elements in {**A,B**} into two parts with equal length, and one part is always greater than the other. Then $median=(max(left\_part)+min(right\_part))/2$.
 
 To ensure these two conditions, we just need to ensure:
 
@@ -44,9 +44,9 @@ To ensure these two conditions, we just need to ensure:
 (2) B[j-1] <= A[i] and A[i-1] <= B[j]
 ```
 
-ps.1 For simplicity, I presume A[i-1],B[j-1],A[i],B[j] are always valid even if i=0/i=m/j=0/j=n . I will talk about how to deal with these edge values at last.
+- ps.1 For simplicity, I presume $A[i-1],B[j-1],A[i],B[j]$ are always valid even if $i=0/i=m/j=0/j=n$ . I will talk about how to deal with these edge values at last.
 
-ps.2 Why n >= m? Because I have to make sure j is non-nagative since 0 <= i <= m and j = (m + n + 1)/2 - i. If n < m , then j may be nagative, that will lead to wrong result.
+- ps.2 Why $n \ge m$? Because I have to make sure j is non-nagative since $0 \le i \le m$ and $j = (m + n + 1)/2 - i$. If $n < m$ , then j may be nagative, that will lead to wrong result.
 
 So, all we need to do is:
 
@@ -91,9 +91,9 @@ max(A[i-1], B[j-1]) (when m + n is odd)
 or (max(A[i-1], B[j-1]) + min(A[i], B[j]))/2 (when m + n is even)
 ```
 
-Now let's consider the edges values **i=0,i=m,j=0,j=n** where **A[i-1],B[j-1],A[i],B[j]** may not exist. Actually this situation is easier than you think.
+Now let's consider the edges values $i=0,i=m,j=0,j=n$ where $A[i-1],B[j-1],A[i],B[j]$ may not exist. Actually this situation is easier than you think.
 
-What we need to do is ensuring that **max(left_part)<=min(right_part)**. So, if i and j are not edges values(means A[i-1],B[j-1],A[i],B[j] all exist), then we must check both B[j-1] <= A[i] and A[i-1] <= B[j]. But if some of A[i-1],B[j-1],A[i],B[j] don't exist, then we don't need to check one(or both) of these two conditions. For example, if i=0, then A[i-1] doesn't exist, then we don't need to check A[i-1] <= B[j]. So, what we need to do is:
+What we need to do is ensuring that $max(left_part)<=min(right_part)$. So, if $i$ and $j$ are not edges values(means $A[i-1],B[j-1],A[i],B[j]$ all exist), then we must check both $B[j-1] \le A[i]$ and $A[i-1] \le B[j].$ But if some of $A[i-1],B[j-1],A[i],B[j]$ don't exist, then we don't need to check one(or both) of these two conditions. For example, if $i=0$, then $A[i-1]$ doesn't exist, then we don't need to check $A[i-1] <= B[j]$. So, what we need to do is:
 
 ```
 Searching i in [0, m], to find an object `i` that:
@@ -116,13 +116,13 @@ And in a searching loop, we will encounter only three situations:
     Means i is too big, we must decrease it.
 ```
 
-i < m ==> j > 0 and i > 0 ==> j < n . Because:
+$i < m$ ==> $j > 0$ and $i > 0$ ==> $j < n$ . Because:
 
 ```
 m <= n, i < m ==> j = (m+n+1)/2 - i > (m+n+1)/2 - m >= (2*m+1)/2 - m >= 0    
 m <= n, i > 0 ==> j = (m+n+1)/2 - i < (m+n+1)/2 <= (2*n+1)/2 <= n
 ```
-So in situation `<b>` and `<c>`, we don't need to check whether j > 0 and whether j < n.
+So in situation `<b>` and `<c>`, we don't need to check whether $j > 0$ and whether $j < n$.
 
 ```python
 class Solution:
@@ -165,3 +165,60 @@ class Solution:
 
                 return (max_of_left + min_of_right) / 2.0
 ```
+
+# java
+
+```java
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int[] A, B;
+        if (nums1.length > nums2.length) {
+            B = nums1;
+            A = nums2;
+        }
+        else {
+            B = nums2;
+            A = nums1;
+        }
+
+        int i, j;
+
+        int imin = 0, imax = A.length, half = (A.length + B.length + 1) / 2;
+        int max_of_left, min_of_right;
+
+        while (imin <= imax) {
+            // binary search
+            i = (imin + imax) / 2;
+            j = half - i;
+            if (i < A.length && B[j-1] > A[i]) {
+                imin = i + 1;
+            }
+            else if (i > 0 && A[i-1] > B[j]) {
+                imax = i - 1;
+            }
+            else {
+                if (i == 0)
+                    max_of_left = B[j-1];
+                else if (j == 0)
+                    max_of_left = A[i-1];
+                else
+                    max_of_left = Math.max(A[i-1], B[j-1]);
+
+                if ((A.length + B.length) % 2 == 1)
+                    return max_of_left;
+
+                if (i == A.length)
+                    min_of_right = B[j];
+                else if (j == B.length)
+                    min_of_right = A[i];
+                else
+                    min_of_right = Math.min(A[i], B[j]);
+
+                return (max_of_left + min_of_right) / 2.0;
+            }
+        }
+        return 0;
+    }
+}
+```
+

@@ -27,7 +27,7 @@ All the 3 variables left, right, and height can be determined by the information
  * It is a little bit tricky for initializing and updating left and right array
  * for initialization: 
  * we know initially, height array contains all 0, so according to the definition of left and right array, 
- 	left array should contains all 0, and right array should contain all n - 1
+ 	left array should contains all 0, and right array should contain all n - 1 ( >= height)
  * for updating left and right, it is kind of tricky to understand...
  *     ==============================================================
  *     Here is the code for updating left array, we scan from left to right
@@ -58,25 +58,31 @@ All the 3 variables left, right, and height can be determined by the information
  */
 class Solution {
     public int maximalRectangle(char[][] matrix) {
-        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0) return 0;
+        if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0)
+            return 0;
+
         int m = matrix.length, n = matrix[0].length, maxArea = 0;
+
         int[] left = new int[n];
         int[] right = new int[n];
         int[] height = new int[n];
-        Arrays.fill(right, n - 1);
-        for (int i = 0; i < m; i++) {
+
+        Arrays.fill(right, n-1);
+
+        for (char[] chars : matrix) {
             int rB = n - 1;
             for (int j = n - 1; j >= 0; j--) {
-                if (matrix[i][j] == '1') {
+                if (chars[j] == '1')
                     right[j] = Math.min(right[j], rB);
-                } else {
+                else {
                     right[j] = n - 1;
                     rB = j - 1;
                 }
             }
+
             int lB = 0;
             for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == '1') {
+                if (chars[j] == '1') {
                     left[j] = Math.max(left[j], lB);
                     height[j]++;
                     maxArea = Math.max(maxArea, height[j] * (right[j] - left[j] + 1));
@@ -94,47 +100,49 @@ class Solution {
 
 # Histogram
 
-参考 https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/28900/short-and-clean-on-stack-based-java-solution
+参考 [84题](https://leetcode.com/problems/largest-rectangle-in-histogram/discuss/28900/short-and-clean-on-stack-based-java-solution)
 
-
+这个matrix有m行，就把这个问题转换成m个Histogram的问题，每个问题就是一个以这一行为底的Histogram问题，上面连续的1的个数就是Height。
 
 ```java
- public int maximalRectangle(char[][] matrix) {
-    if(matrix.length == 0) return 0;  
-    int n = matrix[0].length;
-    int[] heights = new int[n]; // using a array to reduce counting step of 1
-    int max = 0;
-    for(char[] row: matrix){
-      for(int i = 0; i < n; i++){
-        if(row[i] == '1'){
-          heights[i] += 1;
-        } else {
-          heights[i] = 0;
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        if(matrix.length == 0) return 0;
+        int n = matrix[0].length;
+        int[] heights = new int[n]; // using a array to reduce counting step of 1
+        int max = 0;
+        for(char[] row: matrix){
+            for(int i = 0; i < n; i++){
+                if(row[i] == '1'){
+                    heights[i] += 1;
+                } else {
+                    heights[i] = 0;
+                }
+            }
+
+            max = Math.max(max, maxArea(heights)); // go a sub problem of Histogram
         }
-      }
-      
-      max = Math.max(max, maxArea(heights)); // go a sub problem of Histogram
+        return max;
     }
-    return max;
-  }
-  
-// Exact same solution to Histogram
-  public int maxArea(int[] heights){
-    Stack<Integer> stack = new Stack();
-    int max = 0;
-    for(int i = 0; i <= heights.length; i++){
-      int h = (i == heights.length) ? 0 : heights[i];
-      while(!stack.isEmpty() && heights[stack.peek()] > h){
-        int index = stack.pop();
-        int leftBound = -1;
-        if(!stack.isEmpty()){
-           leftBound =  stack.peek();
+
+    // Exact same solution to Histogram
+    public int maxArea(int[] heights){
+        Stack<Integer> stack = new Stack();
+        int max = 0;
+        for(int i = 0; i <= heights.length; i++){
+            int h = (i == heights.length) ? 0 : heights[i];
+            while(!stack.isEmpty() && heights[stack.peek()] > h){
+                int index = stack.pop();
+                int leftBound = -1;
+                if(!stack.isEmpty()){
+                    leftBound =  stack.peek();
+                }
+                max = Math.max(max, heights[index] * (i - leftBound - 1));
+            }
+            stack.push(i);
         }
-        max = Math.max(max, heights[index] * (i - leftBound - 1));
-      }
-      stack.push(i);
+        return max;
     }
-    return max;
-  }
+}
 ```
 

@@ -1,6 +1,6 @@
 # 自己写的
 
-时间复杂度`$O(n^2)$`
+时间复杂度$O(n^2)$
 ```java
 class Solution {
     public int maxArea(int[] height) {
@@ -27,7 +27,7 @@ class Solution {
 
 # 两边往中间收敛
 
-时间复杂度`$O(n)$`
+时间复杂度$O(n)$
 
 ```java
 class Solution {

@@ -28,3 +28,29 @@ class Solution {
     }
 }
 ```
+
+```java
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0) {
+            return "";
+        }
+
+       int index = 0;
+
+       while (true) {
+           if (strs[0].length() <= index)
+               return strs[0].substring(0, index);
+
+           char c = strs[0].charAt(index);
+
+           for (String s: strs) {
+               if (s.length() <= index || s.charAt(index) != c)
+                   return strs[0].substring(0, index);
+           }
+           index++;
+       }
+    }
+}
+```
+
