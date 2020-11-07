@@ -68,8 +68,6 @@ if (i > 0 && nums[i] == nums[i - 1] && used[i - 1]) {
 
 因此，used[i - 1] 前面加不加感叹号的区别仅在于保留的是相同元素的顺序索引，还是倒序索引。很明显，顺序索引（即使用 !used[i - 1] 作为剪枝判定条件得到）的递归树剪枝更彻底，思路也相对较自然。
 
-
-
 ```java
 public class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
