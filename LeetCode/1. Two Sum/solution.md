@@ -13,12 +13,12 @@ public int[] twoSum(int[] nums, int target) {
 }
 ```
 
-- Time complexity: `$O(n^2)$`
-- Space complexity: `$O(1)$`
+- Time complexity: $O(n^2)$
+- Space complexity: $O(1)$
 
 # Two-pass Hash Table
 
-We reduce the look up time from `$O(n)$` to `$O(1)$` by trading space for speed. A hash table is built exactly for this purpose, it supports fast look up in near constant time. I say "near" because if a collision occurred, a look up could degenerate to `$O(n)$` time. But look up in hash table should be amortized `$O(1)$` time as long as the hash function was chosen carefully.
+We reduce the look up time from $O(n)$ to $O(1)$ by trading space for speed. A hash table is built exactly for this purpose, it supports fast look up in near constant time. I say "near" because if a collision occurred, a look up could degenerate to $O(n)$time. But look up in hash table should be amortized $O(1)$ time as long as the hash function was chosen carefully.
 
 ```java
 public int[] twoSum(int[] nums, int target) {
@@ -36,8 +36,8 @@ public int[] twoSum(int[] nums, int target) {
 }
 ```
 
-- Time complexity: `$O(n)$`
-- Space complexity: `$O(n)$`
+- Time complexity: $O(n)$
+- Space complexity: $O(n)$
 
 # One-pass Hash Table
 
@@ -55,5 +55,5 @@ public int[] twoSum(int[] nums, int target) {
 }
 ```
 
-- Time complexity: `$O(n)$`
-- Space complexity: `$O(n)$`
+- Time complexity: $O(n)$
+- Space complexity: $O(n)$
