@@ -45,7 +45,7 @@ class Solution {
             return null;
     }
 
-    //This function is from Merge Two Sorted Lists.
+    // This function is from Merge Two Sorted Lists.
     public static ListNode merge(ListNode l1,ListNode l2){
         if(l1==null) return l2;
         if(l2==null) return l1;
